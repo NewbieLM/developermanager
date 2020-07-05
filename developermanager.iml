@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module version="4">
+  <component name="FacetManager">
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <setting name="provider-name" value="" />
+        <datasource-mapping>
+          <factory-entry name="Entities" value="f3dcc67f-817f-4494-bdb8-5bc7a62b2617" />
+          <factory-entry name="entityManagerFactory" value="c3178ecd-d743-4d57-bd9e-aa5fc6c197c4" />
+        </datasource-mapping>
+      </configuration>
+    </facet>
+  </component>
+</module>

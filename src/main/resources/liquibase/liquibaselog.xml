@@ -1,0 +1,304 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+
+    <changeSet author="Maksym" id="init-DB">
+
+        <createTable tableName="users">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="username" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="first_name" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="phone_number" type="VARCHAR(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="confirmation_code" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="boolean"  defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
+
+        </createTable>
+
+        <createTable tableName="developers">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="first_name" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="specialty_id" type="BIGINT">
+            </column>
+        </createTable>
+
+        <createTable tableName="skills">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="specialties">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="roles">
+            <column autoIncrement="true" name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="VARCHAR(30)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="developer_skills">
+            <column name="developer_id" type="BIGINT">
+            </column>
+            <column name="skill_id" type="BIGINT">
+            </column>
+        </createTable>
+
+        <createTable tableName="user_roles">
+            <column name="user_id" type="BIGINT">
+            </column>
+            <column name="role_id" type="BIGINT">
+            </column>
+        </createTable>
+
+
+        <addUniqueConstraint tableName="developer_skills" columnNames="developer_id, skill_id"
+                             constraintName="unique_skills_per_developer"/>
+
+        <addUniqueConstraint tableName="user_roles" columnNames="user_id, role_id"
+                             constraintName="unique_role_per_user"/>
+
+        <addUniqueConstraint tableName="users" columnNames="username"
+                             constraintName="unique_username"/>
+
+        <addForeignKeyConstraint baseColumnNames="specialty_id"
+                                 baseTableName="developers"
+                                 constraintName="fk_developer_specialty"
+                                 referencedColumnNames="id"
+                                 referencedTableName="specialties"/>
+
+        <addForeignKeyConstraint baseColumnNames="developer_id"
+                                 baseTableName="developer_skills"
+                                 constraintName="fk_developer_id"
+                                 onDelete="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="developers"/>
+
+        <addForeignKeyConstraint baseColumnNames="skill_id"
+                                 baseTableName="developer_skills"
+                                 constraintName="fk_skill_id"
+                                 onDelete="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="skills"/>
+
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="user_roles"
+                                 constraintName="fk_user_id"
+                                 onDelete="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="users"/>
+
+        <addForeignKeyConstraint baseColumnNames="role_id"
+                                 baseTableName="user_roles"
+                                 constraintName="fk_role_id"
+                                 onDelete="CASCADE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="roles"/>
+
+    </changeSet>
+
+
+    <changeSet author="Maksym" id="populate-DB">
+
+        <insert tableName="users">
+            <column name="id" value="1"/>
+            <column name="username" value="Admin"/>
+            <column name="first_name" value="Sergii"/>
+            <column name="last_name" value="Sergiiv"/>
+            <column name="password" value="$2a$11$tOfrhlpQNbCxaNA7BfYY2eD2ajPTHSrgVb.KCFKRyjBr9gWdaGzAq"/>
+            <column name="phone_number" value="+380665772315"/>
+            <column name="confirmation_code" value="1234"/>
+            <column name="active" valueBoolean="true"/>
+        </insert>
+
+        <insert tableName="users">
+            <column name="id" value="2"/>
+            <column name="username" value="Moderator"/>
+            <column name="first_name" value="Ivan"/>
+            <column name="last_name" value="Ivanov"/>
+            <column name="password" value="$2a$11$tOfrhlpQNbCxaNA7BfYY2eD2ajPTHSrgVb.KCFKRyjBr9gWdaGzAq"/>
+            <column name="phone_number" value="+380665772315"/>
+            <column name="confirmation_code" value="5678"/>
+            <column name="active" valueBoolean="true"/>
+        </insert>
+
+        <insert tableName="users">
+            <column name="id" value="3"/>
+            <column name="username" value="User"/>
+            <column name="first_name" value="Petro"/>
+            <column name="last_name" value="Petrov"/>
+            <column name="password" value="$2a$11$tOfrhlpQNbCxaNA7BfYY2eD2ajPTHSrgVb.KCFKRyjBr9gWdaGzAq"/>
+            <column name="phone_number" value="+380665772315"/>
+            <column name="confirmation_code" value="9012"/>
+            <column name="active" valueBoolean="true"/>
+        </insert>
+
+
+        <insert tableName="roles">
+            <column name="id" value="1"/>
+            <column name="name" value="ROLE_ADMIN"/>
+        </insert>
+
+        <insert tableName="roles">
+            <column name="id" value="2"/>
+            <column name="name" value="ROLE_MODERATOR"/>
+        </insert>
+
+        <insert tableName="roles">
+            <column name="id" value="3"/>
+            <column name="name" value="ROLE_USER"/>
+        </insert>
+
+
+        <insert tableName="user_roles">
+            <column name="user_id" value="1"/>
+            <column name="role_id" value="1"/>
+        </insert>
+
+        <insert tableName="user_roles">
+            <column name="user_id" value="2"/>
+            <column name="role_id" value="2"/>
+        </insert>
+
+        <insert tableName="user_roles">
+            <column name="user_id" value="3"/>
+            <column name="role_id" value="3"/>
+        </insert>
+
+
+        <insert tableName="specialties">
+            <column name="id" value="1"/>
+            <column name="name" value="Backend"/>
+        </insert>
+
+        <insert tableName="specialties">
+            <column name="id" value="2"/>
+            <column name="name" value="Frontend"/>
+        </insert>
+
+        <insert tableName="specialties">
+            <column name="id" value="3"/>
+            <column name="name" value="Database architect"/>
+        </insert>
+
+
+        <insert tableName="skills">
+            <column name="id" value="1"/>
+            <column name="name" value="Java"/>
+        </insert>
+
+        <insert tableName="skills">
+            <column name="id" value="2"/>
+            <column name="name" value="SQL"/>
+        </insert>
+
+        <insert tableName="skills">
+            <column name="id" value="3"/>
+            <column name="name" value="JAVASCRIPT"/>
+        </insert>
+
+        <insert tableName="skills">
+            <column name="id" value="4"/>
+            <column name="name" value="HTML"/>
+        </insert>
+
+        <insert tableName="skills">
+            <column name="id" value="5"/>
+            <column name="name" value="CSS"/>
+        </insert>
+
+
+        <insert tableName="developers">
+            <column name="id" value="1"/>
+            <column name="first_name" value="Denis"/>
+            <column name="last_name" value="Denisov"/>
+            <column name="specialty_id" value="1"/>
+        </insert>
+
+        <insert tableName="developers">
+            <column name="id" value="2"/>
+            <column name="first_name" value="Andrii"/>
+            <column name="last_name" value="Andriiv"/>
+            <column name="specialty_id" value="2"/>
+        </insert>
+
+        <insert tableName="developers">
+            <column name="id" value="3"/>
+            <column name="first_name" value="Pavlo"/>
+            <column name="last_name" value="Pavlov"/>
+            <column name="specialty_id" value="3"/>
+        </insert>
+
+
+        <insert tableName="developer_skills">
+            <column name="developer_id" value="1"/>
+            <column name="skill_id" value="1"/>
+        </insert>
+
+        <insert tableName="developer_skills">
+            <column name="developer_id" value="1"/>
+            <column name="skill_id" value="2"/>
+        </insert>
+
+        <insert tableName="developer_skills">
+            <column name="developer_id" value="2"/>
+            <column name="skill_id" value="3"/>
+        </insert>
+
+        <insert tableName="developer_skills">
+            <column name="developer_id" value="2"/>
+            <column name="skill_id" value="4"/>
+        </insert>
+
+        <insert tableName="developer_skills">
+            <column name="developer_id" value="2"/>
+            <column name="skill_id" value="5"/>
+        </insert>
+
+        <insert tableName="developer_skills">
+            <column name="developer_id" value="3"/>
+            <column name="skill_id" value="2"/>
+        </insert>
+
+    </changeSet>
+
+
+</databaseChangeLog>
