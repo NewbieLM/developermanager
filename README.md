@@ -1,5 +1,9 @@
 ﻿# Developer Manager application
 
+| Technology | Badge |
+|:-----------:|:-----:|
+| Travis CI | [![Build Status](https://travis-ci.com/NewbieLM/developermanager.svg?branch=master)](https://travis-ci.com/NewbieLM/developermanager) |
+
 
 
 This app provides CRUD operations via REST API with such entities as User, Developer, Specialty, Skill and Role.
