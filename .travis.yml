@@ -16,6 +16,5 @@ notifications:
 
 before_install:
   - mysql -e 'CREATE DATABASE developermanager;'
+  - mysql -u root --password="pass"
 
-before_script:
-  - echo "USE mysql;\nUPDATE user SET password=PASSWORD('pass') WHERE user='root';\nFLUSH PRIVILEGES;\n" | mysql -u root
