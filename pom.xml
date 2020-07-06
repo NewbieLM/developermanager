@@ -50,12 +50,12 @@
         </dependency>
 
         <!-- MySQL connector -->
-       <!-- <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.connetor.version}</version>
-        </dependency>
-        -->
+        <!-- <dependency>
+             <groupId>mysql</groupId>
+             <artifactId>mysql-connector-java</artifactId>
+             <version>${mysql.connetor.version}</version>
+         </dependency>
+         -->
 
         <dependency>
             <groupId>org.postgresql</groupId>
