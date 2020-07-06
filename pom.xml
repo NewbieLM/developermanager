@@ -50,12 +50,17 @@
         </dependency>
 
         <!-- MySQL connector -->
-        <dependency>
+       <!-- <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>${mysql.connetor.version}</version>
         </dependency>
+        -->
 
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
 
         <!-- JSON Web Token lib -->
         <dependency>
