@@ -19,3 +19,7 @@ before_install:
 - sudo mysql -e "use mysql; update user set authentication_string=PASSWORD('pass') where User='root'; update user set plugin='mysql_native_password';FLUSH PRIVILEGES;"
 
 
+env:
+  - TWILIO_SID=stub
+  - TWILIO_TOKEN=stub
+  - TWILIO_PHONENUMBER=stub
