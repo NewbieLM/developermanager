@@ -20,6 +20,4 @@ before_install:
 
 
 env:
-  - TWILIO_SID=stub
-  - TWILIO_TOKEN=stub
-  - TWILIO_PHONENUMBER=stub
+  - TWILIO_SID=stub TWILIO_TOKEN=stub TWILIO_PHONENUMBER=stub
