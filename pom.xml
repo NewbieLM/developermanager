@@ -24,6 +24,9 @@
         <mysql.connetor.version>8.0.18</mysql.connetor.version>
         <liquibase.version>3.8.5</liquibase.version>
         <jsonwebtoken.version>0.8.0</jsonwebtoken.version>
+        <springfox.version>2.7.0</springfox.version>
+        <springfox.version>2.7.0</springfox.version>
+        <twilio.version>7.20.0</twilio.version>
     </properties>
 
 
@@ -75,7 +78,19 @@
         <dependency>
             <groupId>com.twilio.sdk</groupId>
             <artifactId>twilio</artifactId>
-            <version>7.20.0</version>
+            <version>${twilio.version}</version>
+        </dependency>
+
+        <!-- Swagger -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${springfox.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${springfox.version}</version>
         </dependency>
 
         <!-- Spring test -->

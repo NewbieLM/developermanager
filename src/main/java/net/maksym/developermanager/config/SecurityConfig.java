@@ -5,6 +5,7 @@ import net.maksym.developermanager.security.jwt.JwtTokenProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -14,10 +15,10 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtTokenProvider jwtTokenProvider;
 
-    private static final String MODERATOR_ENDPOINT = "/*/moderator/**";
     private static final String ADMIN_ENDPOINT = "/**";
     private static final String USER_ENDPOINT = "/*/user/**";
     private static final String LOGIN_ENDPOINT = "/auth/**";
+    private static final String MODERATOR_ENDPOINT = "/*/moderator/**";
 
     @Autowired
     public SecurityConfig(JwtTokenProvider jwtTokenProvider) {
@@ -39,6 +40,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
+                .antMatchers(HttpMethod.GET,
+                        "/v2/api-docs",
+                        "/webjars/**",
+                        "/swagger-resources/**",
+                        "/configuration/**",
+                        "/*.html",
+                        "/favicon.ico",
+                        "/**/*.html",
+                        "/**/*.css",
+                        "/**/*.js").permitAll()  //swagger
                 .antMatchers(LOGIN_ENDPOINT).permitAll()
                 .antMatchers(USER_ENDPOINT).hasAnyRole("USER", "MODERATOR", "ADMIN")
                 .antMatchers(MODERATOR_ENDPOINT).hasAnyRole("MODERATOR", "ADMIN")
