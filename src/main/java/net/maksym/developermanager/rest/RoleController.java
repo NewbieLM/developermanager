@@ -1,5 +1,6 @@
 package net.maksym.developermanager.rest;
 
+import io.swagger.annotations.ApiOperation;
 import net.maksym.developermanager.model.Role;
 import net.maksym.developermanager.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class RoleController {
 
 
     @GetMapping(value = "/moderator/all", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "View list of all users roles")
     public ResponseEntity<List<Role>> getAll() {
         List<Role> roles = roleService.getAll();
         if (roles.isEmpty()) {
@@ -35,6 +37,7 @@ public class RoleController {
 
 
     @GetMapping(value = "/moderator/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Get role by ID")
     public ResponseEntity<Role> getById(@PathVariable("id") Long id) {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -50,6 +53,7 @@ public class RoleController {
     }
 
     @DeleteMapping(value = "/admin/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Delete role by ID (admin only)")
     public ResponseEntity delete(@PathVariable("id") Long id) {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -65,6 +69,7 @@ public class RoleController {
     }
 
     @PostMapping(value = {"/admin/save"}, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Save new role (admin only)")
     public ResponseEntity<Role> save(@RequestBody @Valid Role role) {
 
         if (role == null) {
@@ -80,6 +85,7 @@ public class RoleController {
     }
 
     @PutMapping(value = {"/admin/update"}, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Update role (admin only)")
     public ResponseEntity<Role> update(@RequestBody @Valid Role role) {
         if (role == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

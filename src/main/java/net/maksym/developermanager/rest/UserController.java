@@ -1,5 +1,6 @@
 package net.maksym.developermanager.rest;
 
+import io.swagger.annotations.ApiOperation;
 import net.maksym.developermanager.dto.UserDto;
 import net.maksym.developermanager.model.User;
 import net.maksym.developermanager.security.jwt.JwtUser;
@@ -28,6 +29,7 @@ public class UserController {
 
 
     @GetMapping(value = "/moderator/all", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "View list of all users")
     public ResponseEntity<List<User>> getAll() {
         List<User> users = userService.getAll();
         if (users.isEmpty()) {
@@ -38,6 +40,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/moderator/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Get user by ID")
     public ResponseEntity<User> getById(@PathVariable("id") Long id) {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -52,6 +55,7 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/admin/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Delete user by ID (admin only)")
     public ResponseEntity delete(@PathVariable("id") Long id) {
         User user = userService.get(id);
         if (user == null) {
@@ -64,6 +68,7 @@ public class UserController {
 
 
     @PutMapping(value = "/admin/update", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Update all user data (admin only)")
     public ResponseEntity<User> updateProfile(@RequestBody @Valid User user) {
         if (user == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -75,6 +80,7 @@ public class UserController {
 
 
     @PutMapping(value = "/user/update", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Update user data")
     public ResponseEntity<UserDto> updateUser(@RequestBody @Valid UserDto userDto) {
         if (userDto == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

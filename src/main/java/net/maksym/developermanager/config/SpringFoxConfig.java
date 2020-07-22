@@ -21,7 +21,7 @@ public class SpringFoxConfig {
     public Docket newsApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("net.maksym.developermanager.rest"))
                 .paths(PathSelectors.any())
                 .build()
                 .securitySchemes(Lists.newArrayList(apiKey()))
@@ -57,7 +57,7 @@ public class SpringFoxConfig {
                 "Simple REST API",
                 "1.0",
                 "Free to use",
-                new Contact("Maks", "www.github.com", "max@company.com"), "API license", "https://customer-manager-appl.herokuapp.com", Collections.emptyList());
+                new Contact("Maks", new String(), new String()), new String(), new String(), Collections.emptyList());
         return apiInfo;
     }
 

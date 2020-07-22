@@ -1,5 +1,6 @@
 package net.maksym.developermanager.rest;
 
+import io.swagger.annotations.ApiOperation;
 import net.maksym.developermanager.model.Specialty;
 import net.maksym.developermanager.service.SpecialtyService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class SpecialtyController {
     }
 
     @GetMapping(value = "/user/all", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "View list of all developers speciaties")
     public ResponseEntity<List<Specialty>> getAll() {
         List<Specialty> specialties = specialtyService.getAll();
         if (specialties.isEmpty()) {
@@ -34,6 +36,7 @@ public class SpecialtyController {
 
 
     @GetMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Get specialty by ID")
     public ResponseEntity<Specialty> getById(@PathVariable("id") Long id) {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -49,6 +52,7 @@ public class SpecialtyController {
     }
 
     @DeleteMapping(value = "/moderator/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Delete specialty by ID")
     public ResponseEntity delete(@PathVariable("id") Long id) {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -64,6 +68,7 @@ public class SpecialtyController {
     }
 
     @PostMapping(value = {"/moderator/save"}, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Save new specialty")
     public ResponseEntity<Specialty> save(@RequestBody @Valid Specialty specialty) {
         if (specialty == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -78,6 +83,7 @@ public class SpecialtyController {
     }
 
     @PutMapping(value = {"/moderator/update"}, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Update specialty")
     public ResponseEntity<Specialty> update(@RequestBody @Valid Specialty specialty) {
         if (specialty == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

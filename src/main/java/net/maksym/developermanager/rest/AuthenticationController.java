@@ -1,5 +1,6 @@
 package net.maksym.developermanager.rest;
 
+import io.swagger.annotations.ApiOperation;
 import net.maksym.developermanager.dto.LoginDto;
 import net.maksym.developermanager.dto.UserDto;
 import net.maksym.developermanager.messanger.MessageSender;
@@ -40,6 +41,7 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/register", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "New user registration")
     public ResponseEntity register(@RequestBody @Valid UserDto userDto) {
         if (userDto == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -51,6 +53,7 @@ public class AuthenticationController {
     }
 
     @PostMapping(value = "/login", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE, MediaType.TEXT_PLAIN_VALUE})
+    @ApiOperation(value = "Login to the app")
     public ResponseEntity login(@RequestBody @Valid LoginDto loginDto) {
 
         String username = loginDto.getUsername();
@@ -71,6 +74,7 @@ public class AuthenticationController {
     }
 
     @PutMapping(value = "/confirm-registration")
+    @ApiOperation(value = "Confirmation of registration of a new user")
     public ResponseEntity confirmRegistration(@RequestParam("confirmationCode") String confirmationCode, @RequestParam("username") String username) {
 
         if (username == null || confirmationCode == null) {

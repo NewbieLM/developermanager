@@ -1,5 +1,6 @@
 package net.maksym.developermanager.rest;
 
+import io.swagger.annotations.ApiOperation;
 import net.maksym.developermanager.model.Skill;
 import net.maksym.developermanager.service.SkillService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class SkillController {
     }
 
     @GetMapping(value = "/user/all", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "View list of all developers skills")
     public ResponseEntity<List<Skill>> getAll() {
         List<Skill> skills = skillService.getAll();
         if (skills.isEmpty()) {
@@ -34,6 +36,7 @@ public class SkillController {
 
 
     @GetMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Get skill by ID")
     public ResponseEntity<Skill> getById(@PathVariable("id") Long id) {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -49,6 +52,7 @@ public class SkillController {
     }
 
     @DeleteMapping(value = "/moderator/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Delete skill by ID")
     public ResponseEntity delete(@PathVariable("id") Long id) {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -64,6 +68,7 @@ public class SkillController {
     }
 
     @PostMapping(value = {"/moderator/save"}, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Save new skill")
     public ResponseEntity<Skill> save(@RequestBody @Valid Skill skill) {
         if (skill == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -78,6 +83,7 @@ public class SkillController {
     }
 
     @PutMapping(value = {"/moderator/update"}, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Update skill")
     public ResponseEntity<Skill> update(@RequestBody @Valid Skill skill) {
         if (skill == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

@@ -1,5 +1,6 @@
 package net.maksym.developermanager.rest;
 
+import io.swagger.annotations.ApiOperation;
 import net.maksym.developermanager.model.Developer;
 import net.maksym.developermanager.service.DeveloperService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class DeveloperController {
     }
 
     @GetMapping(value = "/user/all", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "View list of all developers")
     public ResponseEntity<List<Developer>> getAll() {
         List<Developer> developers = developerService.getAll();
         if (developers.isEmpty()) {
@@ -34,6 +36,7 @@ public class DeveloperController {
 
 
     @GetMapping(value = "/user/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Get developer by ID")
     public ResponseEntity<Developer> getById(@PathVariable("id") Long id) {
         if (id == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -48,6 +51,7 @@ public class DeveloperController {
     }
 
     @DeleteMapping(value = "/moderator/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Delete developer by ID")
     public ResponseEntity delete(@PathVariable("id") Long id) {
         Developer developer = developerService.get(id);
         if (developer == null) {
@@ -60,6 +64,7 @@ public class DeveloperController {
 
 
     @PostMapping(value = {"/moderator/create"}, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Save new developer")
     public ResponseEntity<Developer> save(@RequestBody @Valid Developer developer) {
         if (developer == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -74,6 +79,7 @@ public class DeveloperController {
     }
 
     @PutMapping(value = {"/moderator/update"}, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ApiOperation(value = "Update developer")
     public ResponseEntity<Developer> update(@RequestBody @Valid Developer developer) {
         if (developer == null) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
